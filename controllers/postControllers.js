@@ -102,7 +102,9 @@ const deletePost = async (req, res, next) => {
 
 const getPost = async (req, res, next) => {
   try {
-    const post = await Post.findOne({ slug: req.params.slug }).populate([
+    const post = await Post.findOne({
+      slug: req.params.slug,
+    }).populate([
       {
         path: "user",
         select: ["avatar", "name"],
