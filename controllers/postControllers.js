@@ -1,4 +1,3 @@
-import { uploadPicture } from "../middleware/uploadPictureMiddleware";
 import Post from "../models/Post";
 import Comment from "../models/Comment";
 import { fileRemover } from "../utils/fileRemover";
@@ -47,7 +46,7 @@ const updatePost = async (req, res, next) => {
     post.tags = tags || post.tags;
     post.categories = categories || post.categories;
     post.isPublic = isPublic;
-    post.photo = photo || post.photo;
+    post.photo = photo;
 
     const updatedPost = await post.save();
     return res.json(updatedPost);
