@@ -35,49 +35,22 @@ const updatePost = async (req, res, next) => {
       return;
     }
 
-    const upload = uploadPicture.single("postPicture");
+    const data = req.body;
 
-    const handleUpdatePostData = async (data) => {
-      const { title, caption, slug, body, tags, categories, isPublic } =
-        JSON.parse(data);
+    const { title, caption, photo, slug, body, tags, categories, isPublic } =
+      data;
 
-      post.title = title || post.title;
-      post.caption = caption || post.caption;
-      post.slug = slug || post.slug;
-      post.body = body || post.body;
-      post.tags = tags || post.tags;
-      post.categories = categories || post.categories;
-      post.isPublic = isPublic;
+    post.title = title || post.title;
+    post.caption = caption || post.caption;
+    post.slug = slug || post.slug;
+    post.body = body || post.body;
+    post.tags = tags || post.tags;
+    post.categories = categories || post.categories;
+    post.isPublic = isPublic;
+    post.photo = photo || post.photo;
 
-      const updatedPost = await post.save();
-      return res.json(updatedPost);
-    };
-
-    upload(req, res, async function (err) {
-      if (err) {
-        const error = new Error(
-          "An unknown error occured when uploading " + err.message
-        );
-        next(error);
-      } else {
-        // every thing went well
-        if (req.file) {
-          let filename;
-          filename = post.photo;
-          if (filename) {
-            fileRemover(filename);
-          }
-          post.photo = req.file.filename;
-          handleUpdatePostData(req.body.document);
-        } else {
-          let filename;
-          filename = post.photo;
-          post.photo = "";
-          fileRemover(filename);
-          handleUpdatePostData(req.body.document);
-        }
-      }
-    });
+    const updatedPost = await post.save();
+    return res.json(updatedPost);
   } catch (error) {
     next(error);
   }
