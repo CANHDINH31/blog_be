@@ -7,8 +7,8 @@ import {
   getPost,
   updatePost,
   getAllPublicPosts,
-} from "../controllers/postControllers";
-import { authGuard, adminGuard } from "../middleware/authMiddleware";
+} from "../controllers/postControllers.js";
+import { authGuard, adminGuard } from "../middleware/authMiddleware.js";
 router
   .route("/public")
   .post(authGuard, adminGuard, createPost)

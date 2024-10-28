@@ -1,8 +1,7 @@
-import { uploadPicture } from "../middleware/uploadPictureMiddleware";
-import Comment from "../models/Comment";
-import Post from "../models/Post";
-import User from "../models/User";
-import { fileRemover } from "../utils/fileRemover";
+import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
+import User from "../models/User.js";
+import { fileRemover } from "../utils/fileRemover.js";
 
 const registerUser = async (req, res, next) => {
   try {
