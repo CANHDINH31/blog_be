@@ -177,9 +177,13 @@ const getAllPosts = async (req, res, next) => {
 const getAllPublicPosts = async (req, res, next) => {
   try {
     const filter = req.query.searchKeyword;
+    const category = req.query.categoryKeyword;
     let where = { isPublic: true };
     if (filter) {
       where.title = { $regex: filter, $options: "i" };
+    }
+    if (category) {
+      where.categories = category;
     }
     let query = Post.find(where);
     const page = parseInt(req.query.page) || 1;
